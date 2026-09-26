@@ -35,34 +35,70 @@ The system recognizes the static alphabet of Mexican Sign Language (LSM) in real
 
 ## 📁 Repository structure
 
-
+LSM-MediaPipe-SVM/
+├── README.md
+├── requirements.txt
+├── LICENSE
+├── .gitignore
+├── src/
+│   ├── extract_landmarks.py
+│   ├── train_classifier.py
+│   ├── evaluate.py
+│   └── hri_interface.py
+├── models/
+│   └── svm_rbf_model.pkl
+├── results/
+│   ├── cm_svm_lineal.png
+│   ├── cm_svm_rbf.png
+│   ├── cm_mlp.png
+│   └── captura_A.png ... captura_D.png
+└── paper/
+    ├── LSM.tex
+    └── LSM.pdf
 
 ## 🚀 Installation
 
-```bash
-# Clone the repository
 git clone https://github.com/juanjuarezf/LSM-MediaPipe-SVM.git
+
 cd LSM-MediaPipe-SVM
 
-# Create virtual environment
 python -m venv venv
+
 source venv/bin/activate   # Linux/Mac
+
 venv\Scripts\activate      # Windows
 
-# Install dependencies
 pip install -r requirements.txt
 
-# 1. Extract landmarks from the dataset
+## 📊 Dataset
+
+The dataset used in this work is publicly available on Zenodo:
+
+> Chacon Quintero, A. et al. (2022). *Dataset LSM Lenguaje de señas mexicanas*. Zenodo.
+> DOI: [10.5281/zenodo.6554337](https://doi.org/10.5281/zenodo.6554337)
+
+We used a subset of 2,100 images (21 letters × 100 examples):
+A, B, C, D, E, F, G, H, I, L, M, N, O, P, R, S, T, U, V, W, Y.
+
+Excluded letters: J, K, Z (require motion) and Q, X, Ñ (high visual similarity).
+
+## 🧪 Reproducibility
+
+To reproduce the results reported in the paper:
+
 python src/extract_landmarks.py --data-dir ./data --output ./features.npy
 
-# 2. Train all classifiers
 python src/train_classifier.py --features ./features.npy --output ./models
 
-# 3. Evaluate and generate confusion matrices
 python src/evaluate.py --models ./models --output ./results
 
-# 4. Run the real-time HRI interface
 python src/hri_interface.py --model ./models/svm_rbf_model.pkl
+
+All experiments were run with random_state=42 for reproducibility.
+
+## 📖 Citation
+
+If you use this code in your research, please cite:
 
 @article{juarez2026lsm,
   title={Reproducible Benchmark of Classifiers for the Static Alphabet of Mexican Sign Language on GPU-less Hardware},
@@ -72,3 +108,26 @@ python src/hri_interface.py --model ./models/svm_rbf_model.pkl
   note={Under review}
 }
 
+## 📜 License
+
+This project is licensed under the MIT License — see the LICENSE file for details.
+
+The dataset is licensed under CC BY 4.0 by its original authors.
+
+## 👤 Author
+
+**Juan Juárez Fuentes**
+- Matrícula: AL12514850
+- Universidad Abierta y a Distancia de México (UnADM)
+- Email: al12514850@unadmexico.mx
+- GitHub: [@juanjuarezf](https://github.com/juanjuarezf)
+
+## 🙏 Acknowledgments
+
+- Dr. Hugo Alberto Flores Arguedas (internal advisor)
+- Dr. Eduardo Sánchez Soto (external advisor)
+- UnADM for academic support
+
+## 📬 Contact
+
+For questions or collaborations, please open an issue or contact the author directly.
