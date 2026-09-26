@@ -34,3 +34,41 @@ The system recognizes the static alphabet of Mexican Sign Language (LSM) in real
 - **Validation:** service-robotics simulation on 11×11 grid
 
 ## 📁 Repository structure
+
+
+
+## 🚀 Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/juanjuarezf/LSM-MediaPipe-SVM.git
+cd LSM-MediaPipe-SVM
+
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate   # Linux/Mac
+venv\Scripts\activate      # Windows
+
+# Install dependencies
+pip install -r requirements.txt
+
+# 1. Extract landmarks from the dataset
+python src/extract_landmarks.py --data-dir ./data --output ./features.npy
+
+# 2. Train all classifiers
+python src/train_classifier.py --features ./features.npy --output ./models
+
+# 3. Evaluate and generate confusion matrices
+python src/evaluate.py --models ./models --output ./results
+
+# 4. Run the real-time HRI interface
+python src/hri_interface.py --model ./models/svm_rbf_model.pkl
+
+@article{juarez2026lsm,
+  title={Reproducible Benchmark of Classifiers for the Static Alphabet of Mexican Sign Language on GPU-less Hardware},
+  author={Ju{\'a}rez Fuentes, Juan and Flores Arguedas, Hugo Alberto and S{\'a}nchez Soto, Eduardo},
+  journal={IEEE Latin America Transactions},
+  year={2026},
+  note={Under review}
+}
+
