@@ -60,7 +60,7 @@ LSM-MediaPipe-SVM/
 │   ├── captura_C.png
 │   └── captura_D.png
 └── data/
-    └── landmarks_dataset.csv
+    └── README.md               # Instructions to regenerate the dataset
 
 ## 🚀 Installation
 
@@ -83,14 +83,21 @@ The dataset used in this work is publicly available on Zenodo:
 > Chacon Quintero, A. et al. (2022). *Dataset LSM Lenguaje de señas mexicanas*. Zenodo.
 > DOI: [10.5281/zenodo.6554337](https://doi.org/10.5281/zenodo.6554337)
 
-We used a subset of 2,100 images (21 letters × 100 examples):
+We used the complete public dataset from Zenodo, consisting of 276,152 images across 21 LSM letters:
 A, B, C, D, E, F, G, H, I, L, M, N, O, P, R, S, T, U, V, W, Y.
 
 Excluded letters: J, K, Z (require motion) and Q, X, Ñ (high visual similarity).
 
+**Note:** The extracted features file (`landmarks_dataset.csv`, 336 MB) is not included in this repository due to GitHub's file size limit (25 MB). It can be regenerated following the instructions below.
+
 ## 🧪 Reproducibility
 
 To reproduce the results reported in the paper:
+
+1. Download the dataset from Zenodo (DOI: 10.5281/zenodo.6554337)
+2. Run `extract_landmarks.py` to generate `landmarks_dataset.csv` (336 MB, not included due to GitHub size limits)
+3. Run `compare_models.py` to train and evaluate all classifiers
+4. Run `hri_interface.py` to launch the human-robot interaction demo
 
 python src/extract_landmarks.py --data-dir ./data --output ./features.npy
 
