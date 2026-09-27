@@ -41,20 +41,26 @@ LSM-MediaPipe-SVM/
 ├── LICENSE
 ├── .gitignore
 ├── src/
-│   ├── extract_landmarks.py
-│   ├── train_classifier.py
-│   ├── evaluate.py
-│   └── hri_interface.py
+│   ├── compare_models.py       # Full pipeline: extraction, training & comparison
+│   ├── extract_landmarks.py    # MediaPipe landmark extraction
+│   └── hri_interface.py        # Human-robot interaction GUI
 ├── models/
-│   └── svm_rbf_model.pkl
+│   ├── label_encoder.pkl
+│   ├── scaler.pkl
+│   ├── svm_linear_model.pkl
+│   ├── svm_rbf_model.pkl
+│   └── mlp_model.pkl
 ├── results/
+│   ├── tabla_comparativa_21clases.csv
 │   ├── cm_svm_lineal.png
 │   ├── cm_svm_rbf.png
 │   ├── cm_mlp.png
-│   └── captura_A.png ... captura_D.png
-└── paper/
-    ├── LSM.tex
-    └── LSM.pdf
+│   ├── captura_A.png
+│   ├── captura_B.png
+│   ├── captura_C.png
+│   └── captura_D.png
+└── data/
+    └── landmarks_dataset.csv
 
 ## 🚀 Installation
 
@@ -88,9 +94,7 @@ To reproduce the results reported in the paper:
 
 python src/extract_landmarks.py --data-dir ./data --output ./features.npy
 
-python src/train_classifier.py --features ./features.npy --output ./models
-
-python src/evaluate.py --models ./models --output ./results
+python src/compare_models.py --features ./features.npy --output ./models
 
 python src/hri_interface.py --model ./models/svm_rbf_model.pkl
 
